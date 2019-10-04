@@ -78,7 +78,7 @@ When using `"rollingInterval": "Day"` the date will automatically be appended to
                     "fileSizeLimitBytes": 10240,
                     "rollOnFileSizeLimit": true,
                     "retainedFileCountLimit": 30
-                },
+                }
             }
         ],
         "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId", "WithExceptionDetails" ],
