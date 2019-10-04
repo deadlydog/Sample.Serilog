@@ -24,6 +24,8 @@ namespace ConsoleApp.NetCore3
 			Log.Warning("Here's a Warning message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Error(new Exception("This is an exception."), "Here's an Error message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Fatal("Here's a Fatal message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+
+			Log.CloseAndFlush();
 		}
 	}
 }
