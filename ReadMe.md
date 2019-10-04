@@ -11,12 +11,15 @@ Shows how to use native Serilog without any abstractions to log to the colored c
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
 - Serilog.Enrichers.Environment (optional)
 - Serilog.Enrichers.Thread (optional)
+- Serilog.Exceptions (if you want exception details logged)
 - Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
 - Serilog.Sinks.ColoredConsole (to write to the console)
 - Serilog.Sinks.File (to write to a file)
 
 The `Enrichers` NuGet packages are only required if you want to enrich your logs with optional data.
-Using Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+Some Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+Some sinks do not display Properties (used by Enrichers) by default, such as the `Console` sink, and require you to explicitly define the output format template and include `Properties`.
+
 
 ### Configuration
 
