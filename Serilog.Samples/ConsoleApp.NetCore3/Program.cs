@@ -8,6 +8,24 @@ namespace ConsoleApp.NetCore3
 	{
 		static void Main(string[] args)
 		{
+			SetupStaticLogger();
+
+			try
+			{
+				RunApp();
+			}
+			catch (Exception ex)
+			{
+				Log.Fatal(ex, "An unhandled exception occurred.");
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
+		}
+
+		private static void SetupStaticLogger()
+		{
 			var configuration = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json")
 				.Build();
@@ -15,17 +33,18 @@ namespace ConsoleApp.NetCore3
 			Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(configuration)
 				.CreateLogger();
+		}
 
+		private static void RunApp()
+		{
 			var structuredData = new StructuredData();
 			var simpleData = "This is a string.";
-			
+
 			Log.Debug("Here's a Debug message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Warning("Here's a Warning message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Error(new Exception("This is an exception."), "Here's an Error message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Fatal("Here's a Fatal message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
-
-			Log.CloseAndFlush();
 		}
 	}
 }
