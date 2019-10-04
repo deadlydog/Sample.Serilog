@@ -40,11 +40,12 @@ namespace ConsoleApp.NetCore3
 			var structuredData = new StructuredData();
 			var simpleData = "This is a string.";
 
-			Log.Debug("Here's a Debug message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
-			Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
-			Log.Warning("Here's a Warning message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
-			Log.Error(new Exception("This is an exception."), "Here's an Error message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
-			Log.Fatal("Here's a Fatal message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+			Log.Verbose("Here's a Verbose message.");
+			Log.Debug("Here's a Debug message. Only Public Properties (not fields) are shown on structured data. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+			Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message.");
+			Log.Warning("Here's a Warning message.");
+			Log.Error(new Exception("This is an exception."), "Here's an Error message.", structuredData, simpleData);
+			Log.Fatal("Here's a Fatal message.");
 		}
 	}
 }
