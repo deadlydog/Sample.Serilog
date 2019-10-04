@@ -2,25 +2,20 @@
 
 This repo contains a solution with a number of projects showing how to configure [Serilog](https://serilog.net) in them.
 
-## ConsoleApp.NetCore3 project
-
-Shows how to use native Serilog without any abstractions to log to the colored console and file.
-
-### NuGet packages added
+## NuGet packages added
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
 - Serilog.Enrichers.Environment (optional)
 - Serilog.Enrichers.Thread (optional)
-- Serilog.Exceptions (if you want exception details logged)
+- [Serilog.Exceptions](https://github.com/RehanSaeed/Serilog.Exceptions) (if you want exception details logged)
 - Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file)
 
 The `Enrichers` NuGet packages are only required if you want to enrich your logs with optional data.
 Some Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
-```
 
-### Configuration
+## Configuration
 
 It's best practice to configure your logging in a separate file, rather than directly on source code, so for all of the samples the configuration is set in the `appsettings.json` file.
 
@@ -41,5 +36,12 @@ e.g. the `{Properties:j}` in:
         }
     }
 ],
+```
 
 [See the docs](https://github.com/serilog/serilog/wiki/Formatting-Output#formatting-plain-text) for more information on configuring the `outputTemplate`.
+
+## Projects and what they show
+
+### ConsoleApp.NetCore3 project
+
+Shows how to use native Serilog without any abstractions to log to the console and file.
