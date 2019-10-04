@@ -4,7 +4,7 @@ using System;
 
 namespace ConsoleApp.NetCore3
 {
-	class Program
+	partial class Program
 	{
 		static void Main(string[] args)
 		{
@@ -16,10 +16,13 @@ namespace ConsoleApp.NetCore3
 				.ReadFrom.Configuration(configuration)
 				.CreateLogger();
 
-			Log.Debug("Here's a Debug message.");
-			Log.Information("Here's an Info message.");
-			Log.Warning("Here's a Warning message.");
-			Log.Error(new Exception("This is an exception"), "Here's an Error message.");
+			var structuredData = new StructuredData();
+			var simpleData = "This is a string.";
+
+			Log.Debug("Here's a Debug message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+			Log.Information("Here's an Info message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+			Log.Warning("Here's a Warning message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+			Log.Error(new Exception("This is an exception."), "Here's an Error message. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 		}
 	}
 }
