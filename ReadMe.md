@@ -5,15 +5,20 @@ This repo contains a solution with a number of projects showing how to configure
 ## NuGet packages added
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
-- Serilog.Enrichers.Environment (optional, if you want access to log Environmental variables)
-- Serilog.Enrichers.Thread (optional, if you want to log the Thread ID)
+- [Serilog.Enrichers.Environment](https://github.com/serilog/serilog-enrichers-environment) (optional, if you want to automatically log the Machine or User name)
+- [Serilog.Enrichers.Thread](https://github.com/serilog/serilog-enrichers-thread) (optional, if you want to automatically log the Thread ID or Name)
 - [Serilog.Exceptions](https://github.com/RehanSaeed/Serilog.Exceptions) (optional, if you want to log exception details)
 - Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
 
-The `Enrichers` NuGet packages are only required if you want to enrich your logs with optional data.
+### Enricher NuGet packages
+
+The `Enrichers` NuGet packages are only required if you want to automatically enrich _all_ of your logs with additional data.
+There are many other Enricher NuGet packages, such as [Serilog.Enrichers.Process](https://github.com/serilog/serilog-enrichers-process) (for process ID and Name), [Serilog.Enrichers.Context](https://github.com/saleem-mirza/serilog-enrichers-context) (for accessing Environmental variables), [Serilog.Enrichers.Memory](https://github.com/JoshSchreuder/serilog-enrichers-memory) (for memory consumption), [Serilog.Enrichers.AspNetCoreHttpContext](https://github.com/trenoncourt/serilog-enrichers-aspnetcore-httpcontext) (for logging request data), and others for all sorts of things.
 Some Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+
+There's also packages like [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore) that can automatically attach web request IDs and other things to your logs.
 
 ## Configuration
 
