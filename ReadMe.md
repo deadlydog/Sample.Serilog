@@ -16,7 +16,9 @@ This repo contains a solution with a number of projects showing how to configure
 
 The `Enrichers` NuGet packages are only required if you want to automatically enrich _all_ of your logs with additional data.
 There are many other Enricher NuGet packages, such as [Serilog.Enrichers.Process](https://github.com/serilog/serilog-enrichers-process) (for process ID and Name), [Serilog.Enrichers.Context](https://github.com/saleem-mirza/serilog-enrichers-context) (for accessing Environmental variables), [Serilog.Enrichers.Memory](https://github.com/JoshSchreuder/serilog-enrichers-memory) (for memory consumption), [Serilog.Enrichers.AspNetCoreHttpContext](https://github.com/trenoncourt/serilog-enrichers-aspnetcore-httpcontext) (for logging request data), and others for all sorts of things.
-Some Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+
+You can use the `LogContext` Enricher attach custom properties to your logs, but it requires [code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+An example might be to include a TransactionId property to link all logs from a specific transaction.
 
 There's also packages like [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore) that can automatically attach web request IDs and other things to your logs.
 
