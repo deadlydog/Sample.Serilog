@@ -9,6 +9,7 @@ This repo contains a solution with a number of projects showing how to configure
 
 Then add NuGet packages for whatever sinks you want to use:
 
+- [Serilog.Sinks.Async](https://github.com/serilog/serilog-sinks-async) (use to log to other sinks asynchronously to improve performance)
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
 
@@ -94,9 +95,51 @@ When using `"rollingInterval": "Day"` the date will automatically be appended to
                 }
             }
         ],
-        "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId", "WithExceptionDetails" ],
+        "Enrich": [ "FromLogContext", "WithMachineName", "WithExceptionDetails" ],
         "Properties": {
-            "Application": "Sample",
+            "ApplicationName": "SampleApp",
+            "Environment": "Int"
+        }
+    }
+}
+```
+
+Logging synchronously can slow down your application, especially logging to the console, so you'll typically want to enable asynchronous logging by using the `Async` sink and providing the other sinks in it's `Args`, like so:
+
+```json
+{
+    "Serilog": {
+        "MinimumLevel": "Verbose",
+        "WriteTo": [
+            {
+                "Name": "Async",
+                "Args": {
+                    "configure": [
+                        {
+                            "Name": "Console",
+                            "Args": {
+                                "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+                                "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:j}{NewLine}{Properties:j}{NewLine}{Exception}"
+                            }
+                        },
+                        {
+                            "Name": "File",
+                            "Args": {
+                                "restrictedToMinimumLevel": "Warning",
+                                "path": "Logs\\log.txt",
+                                "rollingInterval": "Day",
+                                "fileSizeLimitBytes": 10240,
+                                "rollOnFileSizeLimit": true,
+                                "retainedFileCountLimit": 30
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "Enrich": [ "FromLogContext", "WithMachineName", "WithExceptionDetails" ],
+        "Properties": {
+            "ApplicationName": "SampleApp",
             "Environment": "Int"
         }
     }
