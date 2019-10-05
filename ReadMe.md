@@ -5,20 +5,34 @@ This repo contains a solution with a number of projects showing how to configure
 ## NuGet packages added
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
-- [Serilog.Enrichers.Environment](https://github.com/serilog/serilog-enrichers-environment) (optional, if you want to automatically log the Machine or User name)
-- [Serilog.Enrichers.Thread](https://github.com/serilog/serilog-enrichers-thread) (optional, if you want to automatically log the Thread ID or Name)
-- [Serilog.Exceptions](https://github.com/RehanSaeed/Serilog.Exceptions) (optional, if you want to log exception details)
 - Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
+
+Then add NuGet packages for whatever sinks you want to use:
+
+- [Serilog.Sinks.Async](https://github.com/serilog/serilog-sinks-async) (use to log to other sinks asynchronously to improve performance)
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
 
-### Enricher NuGet packages
+### Enricher to automatically attach additional data to log entries
 
-The `Enrichers` NuGet packages are only required if you want to automatically enrich _all_ of your logs with additional data.
-There are many other Enricher NuGet packages, such as [Serilog.Enrichers.Process](https://github.com/serilog/serilog-enrichers-process) (for process ID and Name), [Serilog.Enrichers.Context](https://github.com/saleem-mirza/serilog-enrichers-context) (for accessing Environmental variables), [Serilog.Enrichers.Memory](https://github.com/JoshSchreuder/serilog-enrichers-memory) (for memory consumption), [Serilog.Enrichers.AspNetCoreHttpContext](https://github.com/trenoncourt/serilog-enrichers-aspnetcore-httpcontext) (for logging request data), and others for all sorts of things.
-Some Enrichers requires [some code changes](https://github.com/serilog/serilog/wiki/Enrichment).
+The `Enrichers` NuGet packages are optional and only required if you want to automatically enrich _all_ of your log entries with additional data.
+
+- [Serilog.Enrichers.AspNetCoreHttpContext](https://github.com/trenoncourt/serilog-enrichers-aspnetcore-httpcontext) (for logging request data)
+- [Serilog.Enrichers.Context](https://github.com/saleem-mirza/serilog-enrichers-context) (for Environmental variables)
+- [Serilog.Enrichers.Environment](https://github.com/serilog/serilog-enrichers-environment) (for Machine or User name)
+- [Serilog.Enrichers.Memory](https://github.com/JoshSchreuder/serilog-enrichers-memory) (for memory consumption)
+- [Serilog.Enrichers.Process](https://github.com/serilog/serilog-enrichers-process) (for process ID and Name)
+- [Serilog.Enrichers.Thread](https://github.com/serilog/serilog-enrichers-thread) (for Thread ID and Name)
+- [Serilog.Exceptions](https://github.com/RehanSaeed/Serilog.Exceptions) (exception details)
+
+There are many other Enricher NuGet packages for all sorts of things.
+
+You can use the `LogContext` Enricher to attach custom properties to your logs, but it requires [code changes](https://github.com/serilog/serilog/wiki/Enrichment) to define what you want to attach.
+An example might be to include a custom TransactionId property to link all logs from a specific transaction.
 
 There's also packages like [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore) that can automatically attach web request IDs and other things to your logs.
+
+__Note:__ Not all sinks show enricher properties by default. See the `Logging additional details` section below.
 
 ## Configuration
 
@@ -81,9 +95,51 @@ When using `"rollingInterval": "Day"` the date will automatically be appended to
                 }
             }
         ],
-        "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId", "WithExceptionDetails" ],
+        "Enrich": [ "FromLogContext", "WithMachineName", "WithExceptionDetails" ],
         "Properties": {
-            "Application": "Sample",
+            "ApplicationName": "SampleApp",
+            "Environment": "Int"
+        }
+    }
+}
+```
+
+Logging synchronously can slow down your application, especially logging to the console, so you'll typically want to enable asynchronous logging by using the `Async` sink and providing the other sinks in it's `Args`, like so:
+
+```json
+{
+    "Serilog": {
+        "MinimumLevel": "Verbose",
+        "WriteTo": [
+            {
+                "Name": "Async",
+                "Args": {
+                    "configure": [
+                        {
+                            "Name": "Console",
+                            "Args": {
+                                "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+                                "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:j}{NewLine}{Properties:j}{NewLine}{Exception}"
+                            }
+                        },
+                        {
+                            "Name": "File",
+                            "Args": {
+                                "restrictedToMinimumLevel": "Warning",
+                                "path": "Logs\\log.txt",
+                                "rollingInterval": "Day",
+                                "fileSizeLimitBytes": 10240,
+                                "rollOnFileSizeLimit": true,
+                                "retainedFileCountLimit": 30
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "Enrich": [ "FromLogContext", "WithMachineName", "WithExceptionDetails" ],
+        "Properties": {
+            "ApplicationName": "SampleApp",
             "Environment": "Int"
         }
     }
