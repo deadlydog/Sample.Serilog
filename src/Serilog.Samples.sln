@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppNetCore3", "Conso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore3", "AspNetCore3\AspNetCore3.csproj", "{70AC9C9E-910A-4E43-A015-F840A112960B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppNetCore3UsingMsLoggingAbstraction", "ConsoleAppNetCore3UsingMsLoggingAbstraction\ConsoleAppNetCore3UsingMsLoggingAbstraction.csproj", "{91033607-DDBF-4A52-B39F-5BBD660FCF67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{70AC9C9E-910A-4E43-A015-F840A112960B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AC9C9E-910A-4E43-A015-F840A112960B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AC9C9E-910A-4E43-A015-F840A112960B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
