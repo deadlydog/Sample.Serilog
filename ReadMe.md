@@ -163,7 +163,7 @@ __NOTE:__ While the levels logged can vary per sink via the `restrictedToMinimum
 
 ## Projects in the solution and what they show
 
-### ConsoleApp.NetCore3 project
+### ConsoleAppNetCore3 project
 
 Shows how to use native Serilog without any abstractions to log to the console and file.
 

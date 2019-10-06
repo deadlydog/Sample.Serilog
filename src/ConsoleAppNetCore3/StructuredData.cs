@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp.NetCore3
+﻿namespace ConsoleAppNetCore3
 {
 	public class StructuredData
 	{

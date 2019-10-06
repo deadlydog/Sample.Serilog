@@ -2,7 +2,7 @@
 using Serilog;
 using System;
 
-namespace ConsoleApp.NetCore3
+namespace ConsoleAppNetCore3
 {
 	public class Program
 	{
