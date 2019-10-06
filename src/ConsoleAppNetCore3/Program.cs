@@ -4,7 +4,7 @@ using System;
 
 namespace ConsoleAppNetCore3
 {
-	public class Program
+	class Program
 	{
 		static void Main(string[] args)
 		{
