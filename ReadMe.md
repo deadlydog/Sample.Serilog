@@ -167,10 +167,10 @@ __NOTE:__ While the levels logged can vary per sink via the `restrictedToMinimum
 
 Shows how to use native Serilog without any abstractions to log to the console and file.
 
-The logging setup and logging is all done from `Program.cs`.
+The logging setup and custom logging is all done from `Program.cs`.
 
 ### AspNetCore3 project
 
 This one also requires adding the `Serilog.AspNetCore` NuGet package.
 
-The setup is done in `Program.cs` and the logging is done from `Pages\Index.cshtml.cs`.
+The setup is done in `Program.cs` and custom logging is done from `Pages\Index.cshtml.cs`.
