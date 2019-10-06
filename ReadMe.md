@@ -2,7 +2,9 @@
 
 This repo contains a solution with a number of projects showing how to configure [Serilog](https://serilog.net) in them.
 
-## NuGet packages added
+## NuGet packages required
+
+To be able to define the Serilog configuration in a json file, rather than hard-coding it, use:
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
 - Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
