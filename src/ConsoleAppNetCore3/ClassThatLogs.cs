@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppNetCore3
 {
-    public class ClassThatLogs
-    {
-        public void WriteLogs()
+	public class ClassThatLogs
+	{
+		public void WriteLogs()
 		{
 			var structuredData = new StructuredData();
 			var simpleData = "This is a string.";
@@ -21,5 +21,5 @@ namespace ConsoleAppNetCore3
 			Log.Error(new Exception("This is an exception."), "Here's an Error message.");
 			Log.Fatal("Here's a Fatal message.");
 		}
-    }
+	}
 }
