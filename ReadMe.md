@@ -166,8 +166,11 @@ __NOTE:__ While the levels logged can vary per sink via the `restrictedToMinimum
 ### ConsoleAppNetCore3 project
 
 Shows how to use native Serilog without any abstractions to log to the console and file.
+For best practice you shouldn't reference the `Serilog.Log` static class in all of your classes like shown in this example.
+A better alternative would be to inject an abstracted log interface instance into the class using dependency injection, or creating a new static class with similar logging methods and have only that class reference `Serilog.Log`.
+That way you can more easily swap out logging frameworks later if needed.
 
-The logging setup and custom logging is all done from `Program.cs`.
+The setup done in `Program.cs` and custom logging is done from `ClassThatLogs.cs`.
 
 ### AspNetCore3 project
 
