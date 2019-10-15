@@ -33,7 +33,7 @@ For more information, see the [official docs](https://github.com/serilog/serilog
 To be able to define the Serilog configuration in a json file, rather than hard-coding it, use:
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
-- Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
+- [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) (to read from Microsoft.Extensions.Configuration)
 
 Then add NuGet packages for whatever sinks you want to use:
 
@@ -68,7 +68,7 @@ __Note:__ Not all sinks show enricher properties by default. See the `Logging ad
 
 It's best practice to configure your logging in a separate file, rather than directly on source code, so for all of the samples the configuration is set in the `appsettings.json` file.
 
-__Note:__ You must set the file properties `Build Action` to `Content` and `Copy to Output Directory` to `Copy if newer` so that it gets copied to the app's bin directory and can be read by the app.
+__Note:__ You must set the file property `Copy to Output Directory` to `Copy if newer` so that it gets copied to the app's bin directory and can be read by the app.
 
 ### Logging additional details
 
@@ -203,3 +203,11 @@ The setup done in `Program.cs` and custom logging is done from `ClassThatLogs.cs
 This one also requires adding the `Serilog.AspNetCore` NuGet package.
 
 The setup is done in `Program.cs` and custom logging is done from `Pages\Index.cshtml.cs`.
+
+### ConsoleAppNetCore3UsingMsLoggingAbstraction
+
+This one also required adding the [`Serilog.Extensions.Logging`](https://github.com/serilog/serilog-extensions-logging), `Microsoft.Extensions.Hosting`, and `Microsoft.Extensions.DependencyInjection` NuGet packages.
+
+## Additional Info
+
+[This blog](https://blog.rsuter.com/logging-with-ilogger-recommendations-and-best-practices/) provides a lot of good info.
