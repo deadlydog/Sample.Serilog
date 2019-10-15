@@ -2,6 +2,32 @@
 
 This repo contains a solution with a number of projects showing how to configure [Serilog](https://serilog.net) in them.
 
+## Writing logs
+
+Serilog works like most other logging frameworks, with one extra feature that it can serialize objects and display their public properties; private properties and public/private fields are not serialized and written to the log though.
+
+There are a couple things to keep in mind:
+
+1. If you want an object to be serialized so that it's public properties are written (rather than `ToString()` being called on the instance itself), prefix the name with `@` or `$`.
+1. Do not use string interpolation (i.e. `Log.Debug($"The time is {DateTime.Now}."`) or manual string concatenation (i.e. `Log.Debug("The time is " + DateTime.Now)`) as it can severely hurt performance.
+Always use a template string and pass the variables in the params parameter (e.g. `Log.Debug("The time is {Now}", DateTime.Now)`)
+
+Here's an example of the various log levels and how you can log primitives and objects.
+
+```csharp
+var structuredData = new StructuredData();
+var simpleData = "This is a string.";
+
+Log.Verbose("Here's a Verbose message.");
+Log.Debug("Here's a Debug message. Only Public Properties (not fields) are shown on structured data. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message.");
+Log.Warning("Here's a Warning message.");
+Log.Error(new Exception("This is an exception."), "Here's an Error message.");
+Log.Fatal("Here's a Fatal message.");
+```
+
+For more information, see the [official docs](https://github.com/serilog/serilog/wiki/Writing-Log-Events).
+
 ## NuGet packages required
 
 To be able to define the Serilog configuration in a json file, rather than hard-coding it, use:
