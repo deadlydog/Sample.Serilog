@@ -66,7 +66,7 @@ __Note:__ Not all sinks show enricher properties by default. See the `Logging ad
 
 ### Keep config in a file instead of code
 
-It's best practice to configure your logging in a separate file, rather than directly on source code, so for all of the samples the configuration is set in the `appsettings.json` file.
+It's best practice to configure your logging in a separate file, rather than directly in code, so for all of the samples the configuration is set in the `appsettings.json` file.
 
 __Note:__ You must set the file property `Copy to Output Directory` to `Copy if newer` so that it gets copied to the app's bin directory and can be read by the app.
 
