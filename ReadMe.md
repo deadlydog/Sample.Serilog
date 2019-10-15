@@ -208,6 +208,8 @@ The setup is done in `Program.cs` and custom logging is done from `Pages\Index.c
 
 This one also required adding the [`Serilog.Extensions.Logging`](https://github.com/serilog/serilog-extensions-logging), `Microsoft.Extensions.Hosting`, and `Microsoft.Extensions.DependencyInjection` NuGet packages.
 
+This project uses the Microsoft dependency injection and logging abstractions to inject an `ILogger<T>` into the class that will write the logs.
+
 ## Additional Info
 
 [This blog](https://blog.rsuter.com/logging-with-ilogger-recommendations-and-best-practices/) provides a lot of good info.
