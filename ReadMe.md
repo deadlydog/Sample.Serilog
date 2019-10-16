@@ -41,6 +41,8 @@ Then add NuGet packages for whatever sinks you want to use:
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
 
+__NOTE:__ If you forget to add the sinks NuGet packages, no logs will be written to any sinks.
+
 ### Enricher to automatically attach additional data to log entries
 
 The `Enrichers` NuGet packages are optional and only required if you want to automatically enrich _all_ of your log entries with additional data.
@@ -209,6 +211,7 @@ The setup is done in `Program.cs` and custom logging is done from `Pages\Index.c
 This one also required adding the [`Serilog.Extensions.Logging`](https://github.com/serilog/serilog-extensions-logging), `Microsoft.Extensions.Hosting`, and `Microsoft.Extensions.DependencyInjection` NuGet packages.
 
 This project uses the Microsoft dependency injection and logging abstractions to inject an `ILogger<T>` into the class that will write the logs.
+This is a more proper way to make a console app than the `ConsoleAppNetCore3` project.
 
 ## Additional Info
 
