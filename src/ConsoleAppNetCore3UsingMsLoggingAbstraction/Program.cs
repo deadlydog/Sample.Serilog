@@ -15,7 +15,6 @@ namespace ConsoleAppNetCore3UsingMsLoggingAbstraction
 			try
 			{
 				CreateHostBuilder(args).RunConsoleAsync();
-				//CreateHostBuilder(args).Build().Run();
 			}
 			catch (Exception ex)
 			{
@@ -36,14 +35,9 @@ namespace ConsoleAppNetCore3UsingMsLoggingAbstraction
 			Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(configuration)
 				.CreateLogger();
-
-			Log.Warning("Testing. NOT SURE WHY THIS ISN'T WORKING!!!!");
-			Log.Error("Also it is not formatting the output properly when using CreateDefaultBuilder. Something isn't right.");
-			// It seems the Host.CreateDefaultBuilder() method sets up it's own console logging instead of ours; that's why: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0
 		}
 
 		private static IHostBuilder CreateHostBuilder(string[] args) =>
-			//Host.CreateDefaultBuilder(args)
 			new HostBuilder()
 				.ConfigureServices((hostContext, services) =>
 				{
