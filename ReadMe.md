@@ -2,18 +2,46 @@
 
 This repo contains a solution with a number of projects showing how to configure [Serilog](https://serilog.net) in them.
 
+## Writing logs
+
+Serilog works like most other logging frameworks, with one extra feature that it can serialize objects and display their public properties; private properties and public/private fields are not serialized and written to the log though.
+
+There are a couple things to keep in mind:
+
+1. If you want an object to be serialized so that it's public properties are written (rather than `ToString()` being called on the instance itself), prefix the name with `@` or `$`.
+1. Do not use string interpolation (i.e. `Log.Debug($"The time is {DateTime.Now}."`) or manual string concatenation (i.e. `Log.Debug("The time is " + DateTime.Now)`) as it can severely hurt performance.
+Always use a template string and pass the variables in the params parameter (e.g. `Log.Debug("The time is {Now}", DateTime.Now)`)
+
+Here's an example of the various log levels and how you can log primitives and objects.
+
+```csharp
+var structuredData = new StructuredData();
+var simpleData = "This is a string.";
+
+Log.Verbose("Here's a Verbose message.");
+Log.Debug("Here's a Debug message. Only Public Properties (not fields) are shown on structured data. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
+Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message.");
+Log.Warning("Here's a Warning message.");
+Log.Error(new Exception("This is an exception."), "Here's an Error message.");
+Log.Fatal("Here's a Fatal message.");
+```
+
+For more information, see the [official docs](https://github.com/serilog/serilog/wiki/Writing-Log-Events).
+
 ## NuGet packages required
 
 To be able to define the Serilog configuration in a json file, rather than hard-coding it, use:
 
 - Microsoft.Extensions.Configuration.Json (to read from appsettings.json file)
-- Serilog.Settings.Configuration (to read from Microsoft.Extensions.Configuration)
+- [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) (to read from Microsoft.Extensions.Configuration)
 
 Then add NuGet packages for whatever sinks you want to use:
 
 - [Serilog.Sinks.Async](https://github.com/serilog/serilog-sinks-async) (use to log to other sinks asynchronously to improve performance)
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
+
+__NOTE:__ If you forget to add the sinks NuGet packages, no logs will be written to any sinks.
 
 ### Enricher to automatically attach additional data to log entries
 
@@ -40,9 +68,9 @@ __Note:__ Not all sinks show enricher properties by default. See the `Logging ad
 
 ### Keep config in a file instead of code
 
-It's best practice to configure your logging in a separate file, rather than directly on source code, so for all of the samples the configuration is set in the `appsettings.json` file.
+It's best practice to configure your logging in a separate file, rather than directly in code, so for all of the samples the configuration is set in the `appsettings.json` file.
 
-__Note:__ You must set the file properties `Build Action` to `Content` and `Copy to Output Directory` to `Copy if newer` so that it gets copied to the app's bin directory and can be read by the app.
+__Note:__ You must set the file property `Copy to Output Directory` to `Copy if newer` so that it gets copied to the app's bin directory and can be read by the app.
 
 ### Logging additional details
 
@@ -166,11 +194,25 @@ __NOTE:__ While the levels logged can vary per sink via the `restrictedToMinimum
 ### ConsoleAppNetCore3 project
 
 Shows how to use native Serilog without any abstractions to log to the console and file.
+For best practice you shouldn't reference the `Serilog.Log` static class in all of your classes like shown in this example.
+A better alternative would be to inject an abstracted log interface instance into the class using dependency injection, or creating a new static class with similar logging methods and have only that class reference `Serilog.Log`.
+That way you can more easily swap out logging frameworks later if needed.
 
-The logging setup and custom logging is all done from `Program.cs`.
+The setup done in `Program.cs` and custom logging is done from `ClassThatLogs.cs`.
 
 ### AspNetCore3 project
 
 This one also requires adding the `Serilog.AspNetCore` NuGet package.
 
 The setup is done in `Program.cs` and custom logging is done from `Pages\Index.cshtml.cs`.
+
+### ConsoleAppNetCore3UsingMsLoggingAbstraction
+
+This one also required adding the [`Serilog.Extensions.Logging`](https://github.com/serilog/serilog-extensions-logging), `Microsoft.Extensions.Hosting`, and `Microsoft.Extensions.DependencyInjection` NuGet packages.
+
+This project uses the Microsoft dependency injection and logging abstractions to inject an `ILogger<T>` into the class that will write the logs.
+This is a more proper way to make a console app than the `ConsoleAppNetCore3` project.
+
+## Additional Info
+
+[This blog](https://blog.rsuter.com/logging-with-ilogger-recommendations-and-best-practices/) provides a lot of good info.

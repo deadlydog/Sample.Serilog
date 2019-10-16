@@ -1,18 +1,20 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 
-namespace ConsoleAppNetCore3
+namespace ConsoleAppNetCore3UsingMsLoggingAbstraction
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
 			SetupStaticLogger();
-
+			
 			try
 			{
-				RunApp();
+				CreateHostBuilder(args).RunConsoleAsync();
 			}
 			catch (Exception ex)
 			{
@@ -35,10 +37,19 @@ namespace ConsoleAppNetCore3
 				.CreateLogger();
 		}
 
-		private static void RunApp()
-		{
-			var classThatLogs = new ClassThatLogs();
-			classThatLogs.WriteLogs();
-		}
+		private static IHostBuilder CreateHostBuilder(string[] args) =>
+			new HostBuilder()
+				.ConfigureServices((hostContext, services) =>
+				{
+					services
+						.AddTransient(typeof(ClassThatLogs))
+						.AddHostedService<TheApp>();
+				}
+				)
+				.ConfigureLogging((hostContext, logging) =>
+				{
+					logging.AddSerilog();
+				}
+			);
 	}
 }
