@@ -37,6 +37,7 @@ namespace ConsoleAppNetCore3
 
 		private static void RunApp()
 		{
+			// Do not pass any logger in via Dependency Injection, as the class will simply reference the static logger.
 			var classThatLogs = new ClassThatLogs();
 			classThatLogs.WriteLogs();
 		}

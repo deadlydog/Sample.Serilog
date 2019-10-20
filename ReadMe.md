@@ -198,13 +198,22 @@ For best practice you shouldn't reference the `Serilog.Log` static class in all 
 A better alternative would be to inject an abstracted log interface instance into the class using dependency injection, or creating a new static class with similar logging methods and have only that class reference `Serilog.Log`.
 That way you can more easily swap out logging frameworks later if needed.
 
-The setup done in `Program.cs` and custom logging is done from `ClassThatLogs.cs`.
+Files of interest:
+
+- [Program.cs](/src/ConsoleAppNetCore3/Program.cs) shows how to setup the global static Serilog logger in your app.
+- [ClassThatLogs.cs](/src/ConsoleAppNetCore3/ClassThatLogs.cs) shows how to use the global static Serilog logger.
+- [appsettings.json](/src/ConsoleAppNetCore3/appsettings.json) shows how to configure Serilog.
 
 ### AspNetCore3 project
 
 This one also requires adding the `Serilog.AspNetCore` NuGet package.
+Using this package will automatically log addition ASP.Net information, such as information about every request that is made.
 
-The setup is done in `Program.cs` and custom logging is done from `Pages\Index.cshtml.cs`.
+Files of interest:
+
+- [Program.cs](/src/AspNetCore3/Program.cs) shows how to setup the global static Serilog logger and inject it into web host.
+- [Pages\Index.cshtml.cs](/src/AspNetCore3/Pages/Index.cshtml.cs) shows how to bring an instance of the logger into your class via constructor dependency inject, and then use it to write logs.
+- [appsettings.json](/src/AspNetCore3/appsettings.json) shows how to configure Serilog.
 
 ### ConsoleAppNetCore3UsingMsLoggingAbstraction
 
@@ -212,6 +221,13 @@ This one also required adding the [`Serilog.Extensions.Logging`](https://github.
 
 This project uses the Microsoft dependency injection and logging abstractions to inject an `ILogger<T>` into the class that will write the logs.
 This is a more proper way to make a console app than the `ConsoleAppNetCore3` project.
+
+Files of interest:
+
+- [Program.cs](/src/ConsoleAppNetCore3UsingMsLoggingAbstraction/Program.cs) shows how to set the global static Serilog logger and inject it into a host so that it can be used by dependency injection.
+It also shows how to have the host run as a console application, and how you instruct it which class should be ran; in this example it is `TheApp` class.
+- [ClassThatLogs.cs](/src/ConsoleAppNetCore3UsingMsLoggingAbstraction/ClassThatLogs.cs) shows how to bring an instance of the logger into your class via constructor dependency injection, and then use it to write logs.
+- [TheApp.cs](src/ConsoleAppNetCore3UsingMsLoggingAbstraction/TheApp.cs) shows how to create the "entry point" of your app by having it implement `Microsoft.Extensions.Hosting.IHostedService`, which gets ran by the Host created in `Program.cs`.
 
 ## Additional Info
 

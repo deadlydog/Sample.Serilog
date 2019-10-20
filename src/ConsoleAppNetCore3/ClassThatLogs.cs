@@ -14,6 +14,7 @@ namespace ConsoleAppNetCore3
 			var structuredData = new StructuredData();
 			var simpleData = "This is a string.";
 
+			// Use the static Serilog.Log class for logging.
 			Log.Verbose("Here's a Verbose message.");
 			Log.Debug("Here's a Debug message. Only Public Properties (not fields) are shown on structured data. Structured data: {@sampleData}. Simple data: {simpleData}.", structuredData, simpleData);
 			Log.Information(new Exception("Exceptions can be put on all log levels"), "Here's an Info message.");
