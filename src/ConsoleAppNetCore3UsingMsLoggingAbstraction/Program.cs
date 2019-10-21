@@ -42,7 +42,9 @@ namespace ConsoleAppNetCore3UsingMsLoggingAbstraction
 				.ConfigureServices((hostContext, services) =>
 				{
 					services
+						// Setup Dependency Injection container.
 						.AddTransient(typeof(ClassThatLogs))
+						// Specify the class that is the app/service that should be ran.
 						.AddHostedService<TheApp>();
 				}
 				)

@@ -17,7 +17,6 @@ namespace AspNetCore3
 		{
 			Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(Configuration)
-				.Enrich.WithProperty("App Name", "Serilog Web App Sample")
 				.CreateLogger();
 
 			try
