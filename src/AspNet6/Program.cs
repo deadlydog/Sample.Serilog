@@ -33,11 +33,11 @@ static void AddSerilogConfiguration(WebApplicationBuilder builder)
 	// NOTE: In .Net 6 the UseSerilog method now shows up on the Host; in .Net Core 3 it was on the Builder.
 	builder.Host.UseSerilog((hostContext, services, loggerConfiguration) =>
 	{
+		// Use the Serilog configuration defined in the application config. e.g. the appsettings.json file.
 		loggerConfiguration
 			.ReadFrom.Configuration(hostContext.Configuration)
 			.ReadFrom.Services(services)
 			.Enrich.FromLogContext();
-		//.WriteTo.Console();
 	});
 }
 
@@ -47,12 +47,10 @@ static void BuildAndRunWebApp(string[] args)
 
 	AddSerilogConfiguration(builder);
 
-	// Add services to the container.
 	builder.Services.AddRazorPages();
 
 	var app = builder.Build();
 
-	// Configure the HTTP request pipeline.
 	if (!app.Environment.IsDevelopment())
 	{
 		app.UseExceptionHandler("/Error");
