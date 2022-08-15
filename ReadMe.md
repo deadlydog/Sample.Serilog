@@ -41,6 +41,9 @@ Then add NuGet packages for whatever sinks you want to use:
 - [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) (to write to the console)
 - [Serilog.Sinks.File](https://github.com/serilog/serilog-sinks-file) (to write to a file (supports rolling files))
 
+These NuGet packages may automatically be included by others.
+For example, the [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore) package depends on and will automatically include all of the packages mentioned above, except for `Serilog.Sinks.Async`, so you only need to add it.
+
 __NOTE:__ If you forget to add the sinks NuGet packages, no logs will be written to any sinks.
 
 ### Enricher to automatically attach additional data to log entries
