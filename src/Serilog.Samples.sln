@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29318.209
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppNetCore3", "ConsoleAppNetCore3\ConsoleAppNetCore3.csproj", "{B1E0B7C2-62FA-4B22-AB16-59978668337B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore3", "AspNetCore3\AspNetCore3.csproj", "{70AC9C9E-910A-4E43-A015-F840A112960B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppNetCore3UsingMsLoggingAbstraction", "ConsoleAppNetCore3UsingMsLoggingAbstraction\ConsoleAppNetCore3UsingMsLoggingAbstraction.csproj", "{91033607-DDBF-4A52-B39F-5BBD660FCF67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppNetCore3UsingMsLoggingAbstraction", "ConsoleAppNetCore3UsingMsLoggingAbstraction\ConsoleAppNetCore3UsingMsLoggingAbstraction.csproj", "{91033607-DDBF-4A52-B39F-5BBD660FCF67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet6", "AspNet6\AspNet6.csproj", "{3DAC087D-97F9-454D-B5FA-A6832C716754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91033607-DDBF-4A52-B39F-5BBD660FCF67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DAC087D-97F9-454D-B5FA-A6832C716754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DAC087D-97F9-454D-B5FA-A6832C716754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DAC087D-97F9-454D-B5FA-A6832C716754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DAC087D-97F9-454D-B5FA-A6832C716754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

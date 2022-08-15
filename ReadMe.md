@@ -191,6 +191,17 @@ __NOTE:__ While the levels logged can vary per sink via the `restrictedToMinimum
 
 ## Projects in the solution and what they show
 
+### AspNet6 project
+
+This one also requires adding the `Serilog.AspNetCore` NuGet package.
+Using this package will automatically log additional ASP.Net information, such as information about every request that is made.
+
+Files of interest:
+
+- [Program.cs](/src/AspNet6/Program.cs) shows how to setup the global static Serilog logger and inject it into web host, as well as creating a bootstrap logger for logging messages during initialization.
+- [Pages\Index.cshtml.cs](/src/AspNet6/Pages/Index.cshtml.cs) shows how to bring an instance of the logger into your class via constructor dependency inject, and then use it to write logs.
+- [appsettings.json](/src/AspNet6/appsettings.json) shows how to configure Serilog, including specifying different minimum log levels for Microsoft, Microsoft.AspNetCore, and System messages.
+
 ### ConsoleAppNetCore3 project
 
 Shows how to use native Serilog without any abstractions to log to the console and file.
@@ -207,7 +218,7 @@ Files of interest:
 ### AspNetCore3 project
 
 This one also requires adding the `Serilog.AspNetCore` NuGet package.
-Using this package will automatically log addition ASP.Net information, such as information about every request that is made.
+Using this package will automatically log additional ASP.Net information, such as information about every request that is made.
 
 Files of interest:
 
